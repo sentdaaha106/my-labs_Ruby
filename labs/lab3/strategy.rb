@@ -20,10 +20,9 @@ class CreditCardPayment < PaymentStrategy
     @card_number = card_number
   end
   
-  # TODO: Implement pay method
-  # Return "Paid $#{amount} using Credit Card ending in #{last_4_digits}"
+  # Возвращаем строку с оплатой кредиткой
   def pay(amount)
-    nil
+    "Paid $#{amount} using Credit Card ending in #{last_4_digits}"
   end
   
   private
@@ -38,10 +37,9 @@ class PayPalPayment < PaymentStrategy
     @email = email
   end
   
-  # TODO: Implement pay method
-  # Return "Paid $#{amount} using PayPal account #{email}"
+  # Возвращаем строку с оплатой через PayPal
   def pay(amount)
-    nil
+    "Paid $#{amount} using PayPal account #{@email}"
   end
 end
 
@@ -50,10 +48,9 @@ class CryptoPayment < PaymentStrategy
     @wallet_address = wallet_address
   end
   
-  # TODO: Implement pay method
-  # Return "Paid $#{amount} using Crypto wallet #{wallet_address}"
+  # Возвращаем строку с оплатой криптовалютой
   def pay(amount)
-    nil
+    "Paid $#{amount} using Crypto wallet #{@wallet_address}"
   end
 end
 
@@ -67,20 +64,18 @@ class ShoppingCart
     @items << { name: name, price: price }
   end
   
-  # TODO: Implement set_payment_strategy method
+  # Сохраняем стратегию оплаты
   def set_payment_strategy(strategy)
-    nil
+    @payment_strategy = strategy
   end
   
   def total
     @items.sum { |item| item[:price] }
   end
   
-  # TODO: Implement checkout method
-  # Use the payment strategy to process payment
-  # Return the result from payment strategy's pay method
+  # Используем стратегию для оплаты
   def checkout
-    nil
+    @payment_strategy.pay(total)
   end
 end
 
@@ -96,30 +91,39 @@ end
 class BubbleSort
   include SortStrategy
   
-  # TODO: Implement bubble sort
-  # Return sorted array (ascending order)
+  # Простая сортировка пузырьком
   def sort(array)
-    nil
+    arr = array.dup  # копируем, чтобы не менять оригинал
+    n = arr.length
+    
+    # Проходим по массиву несколько раз
+    (0...n).each do |i|
+      (0...n-i-1).each do |j|
+        # Меняем местами, если текущий элемент больше следующего
+        if arr[j] > arr[j+1]
+          arr[j], arr[j+1] = arr[j+1], arr[j]
+        end
+      end
+    end
+    arr
   end
 end
 
 class QuickSort
   include SortStrategy
   
-  # TODO: Implement quick sort or use Ruby's built-in sort
-  # Return sorted array (ascending order)
+  # Используем встроенную сортировку Ruby (проще всего)
   def sort(array)
-    nil
+    array.sort
   end
 end
 
 class ReverseSort
   include SortStrategy
   
-  # TODO: Implement reverse sort
-  # Return sorted array (descending order)
+  # Сортируем по убыванию
   def sort(array)
-    nil
+    array.sort.reverse
   end
 end
 
@@ -128,15 +132,14 @@ class DataProcessor
     @sort_strategy = sort_strategy
   end
   
-  # TODO: Implement set_strategy method
+  # Меняем стратегию сортировки
   def set_strategy(strategy)
-    nil
+    @sort_strategy = strategy
   end
   
-  # TODO: Implement process method
-  # Use the sort strategy to sort the data
+  # Применяем стратегию к данным
   def process(data)
-    nil
+    @sort_strategy.sort(data)
   end
 end
 
@@ -150,26 +153,23 @@ class CompressionStrategy
 end
 
 class ZipCompression < CompressionStrategy
-  # TODO: Implement compress method
-  # Return "ZIP compressed: #{data}"
+  # Просто добавляем текст "ZIP compressed: "
   def compress(data)
-    nil
+    "ZIP compressed: #{data}"
   end
 end
 
 class RarCompression < CompressionStrategy
-  # TODO: Implement compress method
-  # Return "RAR compressed: #{data}"
+  # Просто добавляем текст "RAR compressed: "
   def compress(data)
-    nil
+    "RAR compressed: #{data}"
   end
 end
 
 class NoCompression < CompressionStrategy
-  # TODO: Implement compress method
-  # Return "Not compressed: #{data}"
+  # Просто добавляем текст "Not compressed: "
   def compress(data)
-    nil
+    "Not compressed: #{data}"
   end
 end
 
@@ -180,15 +180,14 @@ class FileHandler
     @compression_strategy = compression_strategy
   end
   
-  # TODO: Implement set_compression method
+  # Меняем стратегию сжатия
   def set_compression(strategy)
-    nil
+    @compression_strategy = strategy
   end
   
-  # TODO: Implement save_file method
-  # Compress data using the strategy and return result
+  # Сохраняем файл с применением стратегии сжатия
   def save_file(data)
-    nil
+    @compression_strategy.compress(data)
   end
 end
 
