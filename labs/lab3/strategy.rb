@@ -112,7 +112,7 @@ end
 class QuickSort
   include SortStrategy
   
-  # Используем встроенную сортировку Ruby (проще всего)
+  # Используем встроенную сортировку Ruby 
   def sort(array)
     array.sort
   end
